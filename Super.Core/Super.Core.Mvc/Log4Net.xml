@@ -2,34 +2,60 @@
 <log4net>
 
   <root>
-    <!--<level value="WARN" />-->
-    <appender-ref ref="file" />
+    <!--<level value="ALL" />-->
+    <appender-ref ref="infoFile" />
+    <appender-ref ref="errorFile" />
   </root>
   
   
   
-  <appender name="file" type="log4net.Appender.RollingFileAppender">
+  <appender name="infoFile" type="log4net.Appender.RollingFileAppender">
 
     <param name="File" value="log4netLogs\\" />
     <param name="AppendToFile" value="true" />
     <param name="MaxFileSize" value="100" />
     <param name="MaxSizeRollBackups" value="100" />
     <param name="StaticLogFileName" value="false" />
-    <param name="DatePattern" value="yyyy-MM-dd/&quot;Log_Info_&quot;yyyyMMdd&quot;.htm&quot;" />
+    <param name="DatePattern" value="yyyy-MM-dd/&quot;Log_Info_&quot;yyyyMMdd&quot;.log&quot;" />
     <param name="RollingStyle" value="Date" />
     
     <layout type="log4net.Layout.PatternLayout">
-      <conversionPattern value="%date{yyyy-MM-dd HH:mm:ss},%m" ></conversionPattern>
+      <conversionPattern value="%date{yyyy-MM-dd HH:mm:ss},%level,%logger,%m %newline" ></conversionPattern>
     </layout>
 
-    <filter type="log4net.Filter.LevelRangeFilter">
-      <levelMin value="DEBUG"/>
-      <levelMax value="FATAL"/>     
+    <!--<filter type="log4net.Filter.LevelRangeFilter">
+      <levelMin value="All"/>
+      <levelMax value="Info"/>     
+    </filter>-->
+
+    <filter type="log4net.Filter.LoggerMatchFilter">
+      <loggerToMatch value="Super*" />
     </filter>
     
   </appender>
-  
-  
-  
+
+
+  <appender name="errorFile" type="log4net.Appender.RollingFileAppender">
+
+    <param name="File" value="log4netLogs\\" />
+    <param name="AppendToFile" value="true" />
+    <param name="MaxFileSize" value="100" />
+    <param name="MaxSizeRollBackups" value="100" />
+    <param name="StaticLogFileName" value="false" />
+    <param name="DatePattern" value="yyyy-MM-dd/&quot;Log_Error_&quot;yyyyMMdd&quot;.log&quot;" />
+    <param name="RollingStyle" value="Date" />
+
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="%date{yyyy-MM-dd HH:mm:ss},%m %newline" ></conversionPattern>
+    </layout>
+
+    <filter type="log4net.Filter.LevelRangeFilter">
+      <levelMin value="Warn"/>
+      <levelMax value="Fatal"/>
+    </filter>
+
+    
+
+  </appender>
   
 </log4net>

@@ -24,10 +24,10 @@ namespace Super.Core.Mvc.Controllers
         }
 
         //自定义日志类别
-        public LogTestController(ILoggerFactory loggerFactory)
-        {
-            var log = loggerFactory.CreateLogger("自定义类别");
-        }
+        //public LogTestController(ILoggerFactory loggerFactory)
+        //{
+        //    var log = loggerFactory.CreateLogger("自定义类别");
+        //}
 
 
         public IActionResult Get()

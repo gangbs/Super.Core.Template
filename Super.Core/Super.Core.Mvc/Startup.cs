@@ -56,6 +56,8 @@ namespace Super.Core.Mvc
         {
             #region 注册logger,便于非依赖注入、或其它程序集获取logger
 
+            loggerFactory.AddLog4Net("Log4Net.xml");
+
             LoggerBuilder.Instance.Register(loggerFactory);
 
             #endregion

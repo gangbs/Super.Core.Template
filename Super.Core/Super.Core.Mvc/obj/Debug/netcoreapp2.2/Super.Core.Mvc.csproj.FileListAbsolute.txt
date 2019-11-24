@@ -10,7 +10,6 @@ D:\git\Super.Core.Template\Super.Core\Super.Core.Mvc\bin\Debug\netcoreapp2.2\Sup
 D:\git\Super.Core.Template\Super.Core\Super.Core.Mvc\bin\Debug\netcoreapp2.2\Super.Core.Mvc.pdb
 D:\git\Super.Core.Template\Super.Core\Super.Core.Mvc\bin\Debug\netcoreapp2.2\Super.Core.Mvc.Views.dll
 D:\git\Super.Core.Template\Super.Core\Super.Core.Mvc\bin\Debug\netcoreapp2.2\Super.Core.Mvc.Views.pdb
-D:\git\Super.Core.Template\Super.Core\Super.Core.Mvc\obj\Debug\netcoreapp2.2\Super.Core.Mvc.csprojAssemblyReference.cache
 D:\git\Super.Core.Template\Super.Core\Super.Core.Mvc\obj\Debug\netcoreapp2.2\Super.Core.Mvc.RazorAssemblyInfo.cache
 D:\git\Super.Core.Template\Super.Core\Super.Core.Mvc\obj\Debug\netcoreapp2.2\Super.Core.Mvc.RazorAssemblyInfo.cs
 D:\git\Super.Core.Template\Super.Core\Super.Core.Mvc\obj\Debug\netcoreapp2.2\Super.Core.Mvc.AssemblyInfoInputs.cache
