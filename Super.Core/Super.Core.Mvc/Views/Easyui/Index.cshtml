@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_PsaLayout.cshtml";
+}
+
+
+
+@section West{
+
+    11111
+    <button onclick="ajaxTest()">按钮</button>
+}
+
+@section Scripts{
+
+    <script>
+
+
+        function ajaxTest() {
+
+            var data = {
+                id:1,
+                name:"yyg",
+                cars: ["car1", "car2", "car3"]
+            };
+
+            //$.ajax({
+            //    url: "Easyui/Post",
+            //    type: 'post',
+            //    data: JSON.stringify(data),
+            //    //dataType: "json",
+            //    contentType:"application/json;charset=utf-8",
+            //    success: function (r) {
+
+            //    },
+            //    error: function (r) {
+            //        alert(r);
+            //    }
+            //});
+
+            var str = "Easyui/Post";
+
+            $.Pims.Ajax.Post("Easyui/Post", data);
+        }
+
+
+    </script>
+    }

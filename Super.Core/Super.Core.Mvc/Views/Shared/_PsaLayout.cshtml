@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @*<link href="~/Content/jquery-easyui/themes/default/easyui.css" rel="stylesheet" />*@
+
+    <link href="@Url.Content("lib/jquery-easyui/themes/material/easyui.css")" rel="stylesheet" />
+        <link href="@Url.Content("lib/jquery-easyui/themes/icon.css")" rel="stylesheet" />
+        <link href="@Url.Content("lib/font-awesome/css/font-awesome.min.css")" rel="stylesheet" />
+        <link href="@Url.Content("lib/pims-icon.css")" rel="stylesheet" />
+        @RenderSection("Css", required: false)
+
+        <script src="@Url.Content("lib/jquery-easyui/jquery.min.js")"></script>
+        <script src="@Url.Content("lib/jquery-easyui/jquery.easyui.min.js")"></script>
+        <script src="@Url.Content("lib/jquery-easyui/locale/easyui-lang-zh_CN.js")"></script>
+        <script src="@Url.Content("js/pims.page.base.js")"></script>
+
+</head>
+<body class="easyui-layout">
+    <div id="glb_ly_west" data-options="region:'west',title:'',iconCls:'icon-tree',split:true,hideCollapsedContent:false,collapsible:false,minWidth:210,maxWidth:210">
+        @RenderSection("West", required: true)
+    </div>
+
+    <div id="glb_ly_center" data-options="region:'center',title:''">
+        @RenderBody()
+    </div>
+</body>
+</html>
+
+@RenderSection("Scripts", required: false)
