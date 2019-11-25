@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Super.Core.Mvc.Models;
+using Super.Core.Mvc.Models.ApiLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +16,11 @@ namespace Super.Core.Mvc.Filter
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
     {
-        readonly ILogger<ExceptionLogModel> _logger;
+        readonly ILoggerFactory _loggerfactory;
 
-        public ApiExceptionFilterAttribute(ILogger<ExceptionLogModel> logger)
+        public ApiExceptionFilterAttribute(ILoggerFactory loggerfactory)
         {
-            this._logger = logger;
+            this._loggerfactory = loggerfactory;
         }
 
 
@@ -28,29 +30,24 @@ namespace Super.Core.Mvc.Filter
             if (context.ExceptionHandled) return;
 
             var action = (ControllerActionDescriptor)context.ActionDescriptor;
-            var reqParam = context.Filters.FirstOrDefault(x => x.GetType() == typeof(ModelValidateFilterAttribute));
+            var reqParam = context.Filters.FirstOrDefault(x => x.GetType() == typeof(ModelValidateFilterAttribute));            
 
-            //ApiErrorLogMsg msg = new ApiErrorLogMsg
-            //{
-            //    HttpMethod = context.HttpContext.Request.Method,
-            //    ControllerName = action.ControllerName,
-            //    ActionName = action.ActionName,
-            //    Path = context.HttpContext.Request.Path,
-            //    User = context.HttpContext.User.Identity.Name,
-            //    Msg = context.Exception,
-            //    RequestJson = reqParam != null ? ((PimsModelValidateFilterAttribute)reqParam).RequestArguments.ToJson() : null
-            //};
+            var model = new ApiErrorLogModel
+            {
+                HttpMethod = context.HttpContext.Request.Method,
+                ControllerName = action.ControllerName,
+                ActionName = action.ActionName,
+                Path = context.HttpContext.Request.Path,
+                User = context.HttpContext.User.Identity.Name,
+                Msg = context.Exception.Message,
+                RequestJson = reqParam != null ?  JsonConvert.SerializeObject(((ModelValidateFilterAttribute)reqParam).RequestArguments): null
+            };
 
-            //Log4NetWriter.GetInstance().ApiErrorLog(msg);
+            var logger = _loggerfactory.CreateLogger($"{context.Exception.TargetSite.DeclaringType}.{context.Exception.TargetSite.Name}");
+            logger.LogError(context.Exception, model.ToString());
 
 
             context.Result = new BadRequestObjectResult(new ErrorResponseModel { code = (int)HttpStatusCode.BadRequest, message = context.Exception.Message, detail = context.Exception });
         }
     }
-
-    public class ExceptionLogModel
-    {
-
-    }
-
 }

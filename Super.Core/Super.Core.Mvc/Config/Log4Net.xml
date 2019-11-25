@@ -2,42 +2,37 @@
 <log4net>
 
   <root>
-    <!--<level value="ALL" />-->
+    <level value="All" />
     <appender-ref ref="infoFile" />
     <appender-ref ref="errorFile" />
   </root>
-  
-  
-  
+     
   <appender name="infoFile" type="log4net.Appender.RollingFileAppender">
-
-    <param name="File" value="log4netLogs\\" />
+    <param name="File" value="Logs\\" />
+    <!--是否在文件中追加,设为false则去将以前的记录覆盖-->
     <param name="AppendToFile" value="true" />
+    <!--文件大小限制-->
     <param name="MaxFileSize" value="100" />
+    <!--单个文件进行拆分的最大数量-->
     <param name="MaxSizeRollBackups" value="100" />
     <param name="StaticLogFileName" value="false" />
     <param name="DatePattern" value="yyyy-MM-dd/&quot;Log_Info_&quot;yyyyMMdd&quot;.log&quot;" />
+    <!--使用日期变换日志文件名-->
     <param name="RollingStyle" value="Date" />
-    
+        
     <layout type="log4net.Layout.PatternLayout">
-      <conversionPattern value="%date{yyyy-MM-dd HH:mm:ss},%level,%logger,%m %newline" ></conversionPattern>
+      <conversionPattern value="%date{yyyy-MM-dd HH:mm:ss}, %level, %logger %n %m %n%n" ></conversionPattern>
     </layout>
 
     <filter type="log4net.Filter.LevelRangeFilter">
-      <levelMin value="All"/>
+      <levelMin value="Info"/>
       <levelMax value="Info"/>     
-    </filter>
-
-    <!--<filter type="log4net.Filter.LoggerMatchFilter">
-      <loggerToMatch value="Super*" />
-    </filter>-->
-    
+    </filter>    
   </appender>
-
 
   <appender name="errorFile" type="log4net.Appender.RollingFileAppender">
 
-    <param name="File" value="log4netLogs\\" />
+    <param name="File" value="Logs\\" />
     <param name="AppendToFile" value="true" />
     <param name="MaxFileSize" value="100" />
     <param name="MaxSizeRollBackups" value="100" />
@@ -46,16 +41,14 @@
     <param name="RollingStyle" value="Date" />
 
     <layout type="log4net.Layout.PatternLayout">
-      <conversionPattern value="%date{yyyy-MM-dd HH:mm:ss},%m %newline" ></conversionPattern>
+      <conversionPattern value="%date{yyyy-MM-dd HH:mm:ss}, %level, %logger %n%m%n %exception%n" ></conversionPattern>
     </layout>
 
     <filter type="log4net.Filter.LevelRangeFilter">
       <levelMin value="Warn"/>
       <levelMax value="Fatal"/>
     </filter>
-
     
-
   </appender>
   
 </log4net>

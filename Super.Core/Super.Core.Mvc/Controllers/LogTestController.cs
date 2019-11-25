@@ -33,7 +33,7 @@ namespace Super.Core.Mvc.Controllers
 
         public IActionResult Get()
         {
-            this._logger.LogInformation("controller log test");
+            this._logger.LogInformation("controller log test %n 123456");
             //this._logger.Log(LogLevel.Information, "");
             return this.Ok();
         }

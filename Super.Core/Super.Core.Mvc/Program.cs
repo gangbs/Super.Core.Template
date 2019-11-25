@@ -17,7 +17,7 @@ namespace Super.Core.Mvc
     {
         public static void Main(string[] args)
         {
-            //WindowManager.Hide();
+            CmdArgsHandler(args);
 
             var host = CreateWebHostBuilder(args).Build();
             var logger = host.Services.GetRequiredService<ILogger<Program>>();
@@ -37,5 +37,20 @@ namespace Super.Core.Mvc
                  builder.AddLog4Net("Config/Log4Net.xml");
              })
             .UseStartup<Startup>();
+
+
+        /// <summary>
+        /// cmd运行参数处理
+        /// </summary>
+        /// <param name="args"></param>
+        public static void CmdArgsHandler(string[] args)
+        {
+            foreach (var item in args)
+            {
+                if (item == "-h")
+                    WindowManager.Hide();
+            }
+        }
+
     }
 }

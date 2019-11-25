@@ -7,12 +7,7 @@
     <OutputType>Exe</OutputType>
     <StartupObject />
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="NLog.xml" />
-  </ItemGroup>
-
+  </PropertyGroup>  
 
   <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.8" />
@@ -32,6 +27,9 @@
 
 
   <ItemGroup>
+    <None Update="Config\Dockerfile">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Config\Log4Net.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Super.Core.Mvc.Models;
+using Super.Core.Mvc.Models.ApiLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +17,10 @@ namespace Super.Core.Mvc.Filter
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public class ModelValidateFilterAttribute : ActionFilterAttribute
     {
-        readonly ILogger<ModelValidateFailLogModel> _logger;
-        public ModelValidateFilterAttribute(ILogger<ModelValidateFailLogModel> logger)
+        readonly ILoggerFactory _loggerfactory;
+        public ModelValidateFilterAttribute(ILoggerFactory loggerfactory)
         {
-            this._logger = logger;
+            this._loggerfactory = loggerfactory;
         }
 
 
@@ -27,8 +30,9 @@ namespace Super.Core.Mvc.Filter
         {
             if (!context.ModelState.IsValid)
             {
-                //WriteErrorToLog(context);
-                context.Result = new BadRequestObjectResult(new ModelValidateFailResponse(context.ModelState));
+                var res = new ModelValidateFailResponse(context.ModelState);
+                WriteErrorToLog(context,res.message);
+                context.Result = new BadRequestObjectResult(res);
                 return;
             }
 
@@ -40,19 +44,20 @@ namespace Super.Core.Mvc.Filter
         }
 
 
-        //private void WriteErrorToLog(ActionExecutingContext context)
-        //{
-        //    var msg = new ApiErrorLogMsg();
-        //    var action = (ControllerActionDescriptor)context.ActionDescriptor;
-        //    msg.ControllerName = action.ControllerName;
-        //    msg.ActionName = action.ActionName;
-        //    msg.HttpMethod = context.HttpContext.Request.Method;
-        //    msg.Path = context.HttpContext.Request.Path;
-        //    msg.User = context.HttpContext.User.Identity.Name;
-        //    msg.RequestJson = context.ActionArguments.ToJson();
-        //    msg.Msg = context.ModelState.GetAllErrorMessage();
-        //    Log4NetWriter.GetInstance().ApiErrorLog(msg);
-        //}
+        private void WriteErrorToLog(ActionExecutingContext context,string errMsg)
+        {
+            var msg = new ApiErrorLogModel();
+            var action = (ControllerActionDescriptor)context.ActionDescriptor;
+            msg.ControllerName = action.ControllerName;
+            msg.ActionName = action.ActionName;
+            msg.HttpMethod = context.HttpContext.Request.Method;
+            msg.Path = context.HttpContext.Request.Path;
+            msg.User = context.HttpContext.User.Identity.Name;
+            msg.RequestJson = JsonConvert.SerializeObject(context.ActionArguments);
+            msg.Msg = errMsg;
+            var logger = _loggerfactory.CreateLogger(context.Controller.ToString());
+            logger.LogError(msg.ToString());
+        }
 
     }
 
@@ -97,11 +102,6 @@ namespace Super.Core.Mvc.Filter
             this.message = string.Join(';', lstMsg);
             this.detail = lstdetail;
         }
-    }
-
-    public class ModelValidateFailLogModel
-    {
-
-    }
+    }   
 
 }

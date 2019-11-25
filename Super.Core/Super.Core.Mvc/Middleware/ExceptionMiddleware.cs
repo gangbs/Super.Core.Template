@@ -15,12 +15,12 @@ namespace Super.Core.Mvc.Middleware
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        readonly ILogger<object> _logger;
+        readonly ILoggerFactory _loggerfactory;
 
-        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionLogModel> logger)
+        public ExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerfactory)
         {
             _next = next;
-            _logger = logger;
+            _loggerfactory = loggerfactory;
         }
 
 
@@ -32,14 +32,12 @@ namespace Super.Core.Mvc.Middleware
             }
             catch (Exception e)
             {
-                var loggerfactory = (ILoggerFactory)context.RequestServices.GetService(typeof(ILoggerFactory));
-                var logger = loggerfactory.CreateLogger($"{e.TargetSite.DeclaringType}.{e.TargetSite.Name}");
-
-                var res = new ErrorResponseModel { code = (int)HttpStatusCode.BadRequest, message = e.Message, detail = e };
-
-                logger.LogError(JsonConvert.SerializeObject(res));
+                //var loggerfactory = (ILoggerFactory)context.RequestServices.GetService(typeof(ILoggerFactory));
+                var logger = _loggerfactory.CreateLogger($"{e.TargetSite.DeclaringType}.{e.TargetSite.Name}");                
+                logger.LogError(e, e.Message);
                 context.Response.StatusCode = 400;
                 context.Response.ContentType = "application/json";
+                var res = new ErrorResponseModel { code = (int)HttpStatusCode.BadRequest, message = e.Message, detail = e };
                 await context.Response.WriteAsync(JsonConvert.SerializeObject(res));
             }
         }
