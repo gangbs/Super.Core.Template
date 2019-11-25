@@ -23,14 +23,14 @@
       <conversionPattern value="%date{yyyy-MM-dd HH:mm:ss},%level,%logger,%m %newline" ></conversionPattern>
     </layout>
 
-    <!--<filter type="log4net.Filter.LevelRangeFilter">
+    <filter type="log4net.Filter.LevelRangeFilter">
       <levelMin value="All"/>
       <levelMax value="Info"/>     
-    </filter>-->
-
-    <filter type="log4net.Filter.LoggerMatchFilter">
-      <loggerToMatch value="Super*" />
     </filter>
+
+    <!--<filter type="log4net.Filter.LoggerMatchFilter">
+      <loggerToMatch value="Super*" />
+    </filter>-->
     
   </appender>
 

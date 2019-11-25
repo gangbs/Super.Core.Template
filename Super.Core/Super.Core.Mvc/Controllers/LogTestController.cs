@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace Super.Core.Mvc.Controllers
@@ -18,7 +19,7 @@ namespace Super.Core.Mvc.Controllers
 
 
 
-        public LogTestController(ILogger<LogTestController> logger)
+        public LogTestController(ILogger<LogTestController> logger, IConfiguration config)
         {
             this._logger = logger;
         }

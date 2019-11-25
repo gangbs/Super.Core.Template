@@ -56,8 +56,6 @@ namespace Super.Core.Mvc
         {
             #region 注册logger,便于非依赖注入、或其它程序集获取logger
 
-            loggerFactory.AddLog4Net("Log4Net.xml");
-
             LoggerBuilder.Instance.Register(loggerFactory);
 
             #endregion
@@ -104,8 +102,10 @@ namespace Super.Core.Mvc
             });
         }
 
-
-
+        /// <summary>
+        /// 本地IOC容器注册
+        /// </summary>
+        /// <param name="services"></param>
         public void ExtraServiceRegist(IServiceCollection services)
         {
             //services.AddTransient<IYygTest, YygTest>();

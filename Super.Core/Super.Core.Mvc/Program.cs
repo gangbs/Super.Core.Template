@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using log4net;
-using NLog.Web;
+using Super.Core.Mvc.Utility;
 
 namespace Super.Core.Mvc
 {
@@ -27,24 +27,15 @@ namespace Super.Core.Mvc
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args).UseUrls("http://*:9090").UseStartup<Startup>();
-
-        //.ConfigureLogging((hostingContext, builder) =>
-        //    {
-        //    builder.ClearProviders();//取消默认的日志提供程序：控制台、调试、EventSource
-        //    builder.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-        //    builder.AddConsole();
-        //    //builder.AddDebug();
-        //    //builder.AddEventSourceLogger();
-        //    //builder.AddProvider
-        //    //builder.AddFilter(x=>(int)x>(int)LogLevel.Warning);
-        //    builder.AddNLog("NLog.xml");
-        //    builder.AddLog4Net("Log4Net.xml");
-
-
-
-        //})
-
-
+            WebHost.CreateDefaultBuilder(args)
+            .UseConfiguration(AppConfiguration.Instance.Cfg)
+            .ConfigureLogging((hostingContext, builder) =>
+             {//日志配置
+                 builder.ClearProviders();//取消默认的日志提供程序：控制台、调试、EventSource
+                 builder.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));//指定日志配置节点
+                 builder.AddConsole();
+                 builder.AddLog4Net("Config/Log4Net.xml");
+             })
+            .UseStartup<Startup>();
     }
 }
