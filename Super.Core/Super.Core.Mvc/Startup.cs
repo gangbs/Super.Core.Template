@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,8 +11,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Super.Core.Mvc.Filter;
 using Super.Core.Mvc.Middleware;
+using Super.Core.Mvc.Utility;
 
 namespace Super.Core.Mvc
 {
@@ -47,6 +51,24 @@ namespace Super.Core.Mvc
                 options.Filters.Add<ModelValidateFilterAttribute>();
                 options.Filters.Add<ApiExceptionFilterAttribute>();//添加拦截器 
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            #region jwt验证
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,//是否验证Issuer
+                    ValidateAudience = false,//是否验证Audience
+                    ValidateLifetime = false,//是否验证失效时间
+                    ValidateIssuerSigningKey = true,//是否验证SecurityKey
+                    //ValidAudience = JwtConst.Audience,//Audience
+                    //ValidIssuer = JwtConst.Issuer,//Issuer，这两项和前面签发jwt的设置一致
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AppConfiguration.Instance.GetValue("Jwt:SecurityKey")))//拿到SecurityKey
+                };
+            });
+
+            #endregion
 
             this.ExtraServiceRegist(services);
         }
@@ -94,6 +116,7 @@ namespace Super.Core.Mvc
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            app.UseAuthentication();//启用验证
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

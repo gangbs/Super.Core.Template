@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_PsaLayout.cshtml";
+    Layout = "~/Views/Shared/_SuperLayout.cshtml";
 }
 
 
@@ -39,9 +39,15 @@
             //    }
             //});
 
-            var str = "Easyui/Post";
+            var url = "api/test/bad";
+            $.utility.ajax.get(url, {});
 
-            $.Pims.Ajax.Post("Easyui/Post", data);
+            //$.get(url, function (r) {
+
+            //    alert(r);
+            //})
+
+
         }
 
 

@@ -15,7 +15,7 @@ namespace Super.Core.Mvc.Controllers
 
         public IActionResult Index()
         {
-            throw new Exception("yyyyg");
+            //throw new Exception("yyyyg");
             return View();
         }
 
