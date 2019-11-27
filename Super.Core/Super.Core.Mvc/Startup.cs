@@ -12,9 +12,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Super.Core.Infrastruct.Configuration;
+using Super.Core.Infrastruct.Logger;
 using Super.Core.Mvc.Filter;
 using Super.Core.Mvc.Middleware;
-using Super.Core.Mvc.Utility;
 
 namespace Super.Core.Mvc
 {

@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Super.Core.Mvc.Utility
+namespace Super.Core.Infrastruct.Configuration
 {
     public class JsonConfiguration
     {

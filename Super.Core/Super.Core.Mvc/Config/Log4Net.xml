@@ -8,7 +8,7 @@
   </root>
      
   <appender name="infoFile" type="log4net.Appender.RollingFileAppender">
-    <param name="File" value="Logs\\" />
+    <param name="File" value="Logs/" />
     <!--是否在文件中追加,设为false则去将以前的记录覆盖-->
     <param name="AppendToFile" value="true" />
     <!--文件大小限制-->

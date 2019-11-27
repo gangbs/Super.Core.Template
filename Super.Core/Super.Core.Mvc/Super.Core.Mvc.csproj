@@ -16,6 +16,10 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="3.0.3" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.2105168" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+  </ItemGroup>  
+
+  <ItemGroup>
+    <ProjectReference Include="..\Super.Core.Infrastruct\Super.Core.Infrastruct.csproj" />
   </ItemGroup>
 
 
@@ -27,12 +31,17 @@
 
 
   <ItemGroup>
-    <None Update="Config\Dockerfile">
+    <None Update="Docker\Dockerfile">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Config\Log4Net.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Utility\" />
   </ItemGroup>
 
 </Project>

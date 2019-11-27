@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Super.Core.Mvc
+namespace Super.Core.Infrastruct.Logger
 {
     public class LoggerBuilder
     {
@@ -24,13 +23,13 @@ namespace Super.Core.Mvc
             this._loggerFactory = loggerFactory;
         }
 
-        public ILogger GetLogger<T>()
+        public ILogger Build<T>()
         {
             var logger = this._loggerFactory.CreateLogger<T>();
             return logger;
         }
 
-        public ILogger GetLogger(string category)
+        public ILogger Build(string category)
         {
             var logger = this._loggerFactory.CreateLogger(category);
             return logger;

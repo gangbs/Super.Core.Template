@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Super.Core.Mvc
+namespace Super.Core.Infrastruct.Windows
 {
     public class WindowManager
     {

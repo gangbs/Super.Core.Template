@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.IdentityModel.Tokens;
+using Super.Core.Infrastruct.Configuration;
 using Super.Core.Mvc.Models;
-using Super.Core.Mvc.Utility;
 
 namespace Super.Core.Mvc.Controllers
 {

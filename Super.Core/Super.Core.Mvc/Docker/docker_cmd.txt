@@ -1,0 +1,12 @@
+
+宿主机数据卷位置：/var/lib/docker/volumes/
+
+docker volume create sct_config
+
+docker volume create sct_logs
+
+docker build -t sct_image:mvc .
+
+docker run -d -p 96:9090 --name=sct_container --mount src=sct_config,dst=/app/Config  --mount src=sct_logs,dst=/app/Logs sct_image:mvc
+
+

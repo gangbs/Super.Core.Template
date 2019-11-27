@@ -9,7 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using log4net;
-using Super.Core.Mvc.Utility;
+using Super.Core.Infrastruct.Windows;
+using Super.Core.Infrastruct.Configuration;
 
 namespace Super.Core.Mvc
 {

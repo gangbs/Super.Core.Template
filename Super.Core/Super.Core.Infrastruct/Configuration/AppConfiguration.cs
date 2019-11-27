@@ -1,12 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace Super.Core.Mvc.Utility
+namespace Super.Core.Infrastruct.Configuration
 {
-    public class AppConfiguration:JsonConfiguration
+    public class AppConfiguration : JsonConfiguration
     {
         private readonly static object _locker = new object();
         private static AppConfiguration _instance;
@@ -26,8 +24,8 @@ namespace Super.Core.Mvc.Utility
             }
         }
 
-        private AppConfiguration() :base("Config/appsettings.json")
-        {            
+        private AppConfiguration() : base("Config/appsettings.json")
+        {
         }
     }
 }
