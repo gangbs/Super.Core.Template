@@ -29,25 +29,26 @@ namespace Super.Core.Infrastruct.Extensions
             return dt;
         }
 
-        public static List<T> TableToList<T>(this DataTable dt, bool isStoreDB = true)
+        public static List<T> TableToList<T>(this DataTable dt)
         {
+            if (dt == null) return null;
+
             List<T> list = new List<T>();
             Type type = typeof(T);
-            PropertyInfo[] pArray = type.GetProperties(); //集合属性数组
+            PropertyInfo[] pArray = type.GetProperties();
+
+            var columns = dt.Columns;
+
             foreach (DataRow row in dt.Rows)
             {
-                T entity = Activator.CreateInstance<T>(); //新建对象实例 
+                T entity = Activator.CreateInstance<T>();
+
                 foreach (PropertyInfo p in pArray)
                 {
-                    try
-                    {
-                        var obj = Convert.ChangeType(row[p.Name], p.PropertyType);//类型强转，将table字段类型转为集合字段类型  
-                        p.SetValue(entity, obj, null);
-                    }
-                    catch (Exception e)
-                    {
-                         throw e;
-                    }
+                    var col = columns[p.Name];
+                    if (col == null) continue;
+                    var obj = Convert.ChangeType(row[col], p.PropertyType);
+                    p.SetValue(entity, obj, null);
                 }
                 list.Add(entity);
             }

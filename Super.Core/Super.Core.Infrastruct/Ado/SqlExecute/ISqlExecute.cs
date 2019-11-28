@@ -24,5 +24,22 @@ namespace Super.Core.Infrastruct.Ado
         T ExecuteScalar<T>(string sql, params DbParameter[] dbParameters);
 
         int ExecuteNonQuery(string sql, params DbParameter[] dbParameters);
+
+        Dictionary<string, List<ColumnInfo>> GetAllTables();
+
+        bool IsDbExist(string dbName);
+
+        bool IsTableExist(string table);
+
+        SimpleResult CreateDb(string dbName, string fileDirect = null);
+
+    }
+
+    public class ColumnInfo
+    {
+        public string ColumnName { get; set; }
+        public string TableName { get; set; }
+        public string DataType { get; set; }
+        public string Length { get; set; }
     }
 }
