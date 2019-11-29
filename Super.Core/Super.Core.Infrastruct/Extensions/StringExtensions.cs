@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Super.Core.Infrastruct.Extensions
@@ -27,6 +28,14 @@ namespace Super.Core.Infrastruct.Extensions
         {
             byte[] bytes = Convert.FromBase64String(base64);
             return Encoding.UTF8.GetString(bytes);
+        }
+
+
+        public static string ToMD5(this string str)
+        {
+            MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+            string md5Str = BitConverter.ToString(md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(str)));
+            return md5Str;
         }
     }
 }

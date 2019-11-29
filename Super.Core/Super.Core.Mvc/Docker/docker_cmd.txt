@@ -7,6 +7,6 @@ docker volume create sct_logs
 
 docker build -t sct_image:mvc .
 
-docker run -d -p 96:9090 --name=sct_container --mount src=sct_config,dst=/app/Config  --mount src=sct_logs,dst=/app/Logs sct_image:mvc
+docker run -d -p 96:9090 --name=sct_container --mount src=sct_config,dst=/app/Config  --mount src=sct_logs,dst=/app/Logs --restart=always sct_image:mvc
 
 
