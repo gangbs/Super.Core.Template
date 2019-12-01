@@ -10,7 +10,7 @@ namespace Super.Core.Mvc.Controllers
 {
     [Route("api/test")]
     [ApiController]
-    public class TestController : ControllerBase
+    public class TestController : ApiBaseController
     {
         [Route("bad")]
         [HttpGet]

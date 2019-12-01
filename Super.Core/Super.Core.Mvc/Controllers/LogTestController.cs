@@ -12,8 +12,7 @@ namespace Super.Core.Mvc.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    [ApiController]
-    public class LogTestController : ControllerBase
+    public class LogTestController : ApiBaseController
     {
         //日志的类别默认为方法所在类的类名
         readonly ILogger<LogTestController> _logger;

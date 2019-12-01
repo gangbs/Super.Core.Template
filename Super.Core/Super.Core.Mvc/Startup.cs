@@ -49,8 +49,9 @@ namespace Super.Core.Mvc
             services.AddMvc(options =>
             {
                 options.AllowValidatingTopLevelNodes = true;
-                options.Filters.Add<ModelValidateFilterAttribute>();
-                options.Filters.Add<ApiExceptionFilterAttribute>();//添加拦截器 
+                options.Filters.Add<ModelValidateFilterAttribute>();//模型验证拦截器
+                options.Filters.Add<ApiExceptionFilterAttribute>();//系统异常拦截器 
+                options.Filters.Add<ApiLogFilterAttribute>();//api日志拦截器 
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             #region jwt验证
