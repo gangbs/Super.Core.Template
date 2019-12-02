@@ -16,7 +16,7 @@ namespace Super.Core.Mvc.Controllers
 {
     [Route("api/jwt/[controller]")]
     [ApiController]
-    public class LoginController : ControllerBase
+    public class LoginController : ApiBaseController
     {
 
 

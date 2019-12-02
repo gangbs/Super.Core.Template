@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Super.Core.Mvc.Controllers
 {
-    public class EasyuiController : Controller
+    public class EasyuiController : WebBaseController
     {
 
 

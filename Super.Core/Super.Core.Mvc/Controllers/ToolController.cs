@@ -19,8 +19,9 @@ namespace Super.Core.Mvc.Controllers
             this._appLifetime = appLifetime;
         }
 
-
-        public IActionResult Get()
+        [Route("kill")]
+        [HttpPost]
+        public IActionResult Kill()
         {
             this._appLifetime.StopApplication();
             return this.Ok();

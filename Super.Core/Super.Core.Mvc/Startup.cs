@@ -52,6 +52,7 @@ namespace Super.Core.Mvc
                 options.Filters.Add<ModelValidateFilterAttribute>();//模型验证拦截器
                 options.Filters.Add<ApiExceptionFilterAttribute>();//系统异常拦截器 
                 options.Filters.Add<ApiLogFilterAttribute>();//api日志拦截器 
+                options.Filters.Add<ApiAuthorizationFilterAttribute>();//身份验证拦截器
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             #region jwt验证
@@ -117,6 +118,18 @@ namespace Super.Core.Mvc
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            #region websocket,要添加在usemvc之前
+
+            app.UseWebSockets(new WebSocketOptions
+            {
+                KeepAliveInterval = TimeSpan.FromSeconds(120),//向客户端发送“ping”帧的频率，以确保代理保持连接处于打开状态。 默认值为 2 分钟
+                ReceiveBufferSize = 4 * 1024//用于接收数据的缓冲区的大小。 高级用户可能需要对其进行更改，以便根据数据大小调整性能。 默认值为 4 KB               
+            });
+
+            app.UseWsHandlerMiddleware();
+
+            #endregion
 
             app.UseAuthentication();//启用验证
             app.UseMvc(routes =>
