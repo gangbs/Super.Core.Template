@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Super.Core.Infrastruct.Ado
 {
-    public interface IBatch<T> 
+    public interface IBatch<T> :IDisposable
     {
         string TableName { get; }
-        DbConnection DbConn { get; }
+        //DbConnection DbConn { get; }
         int BatchInsert(List<T> lstData);
         Task<int> BatchInsertAsync(List<T> lstData);
     }

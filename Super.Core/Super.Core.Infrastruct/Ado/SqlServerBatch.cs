@@ -12,17 +12,21 @@ namespace Super.Core.Infrastruct.Ado
     public class SqlServerBatch<T> : IBatch<T>
     {
         readonly string _tableName;
-        readonly string _connStr;
+        readonly SqlConnection _conn;
 
         public SqlServerBatch(string tbName, string connStr)
         {
             this._tableName = tbName;
-            this._connStr = connStr;
+            this._conn = (SqlConnection)this.CreateConnection(connStr);
+        }
+
+        public SqlServerBatch(string tbName, DbConnection conn)
+        {
+            this._tableName = tbName;
+            this._conn = (SqlConnection)conn;
         }
 
         public string TableName => this._tableName;
-
-        public DbConnection DbConn => this.CreateConnection(this._connStr);
 
         private DbConnection CreateConnection(string strConn)
         {
@@ -35,7 +39,7 @@ namespace Super.Core.Infrastruct.Ado
         public int BatchInsert(List<T> lstData)
         {
             var dt = lstData.ListToTable();
-            using (SqlBulkCopy sbc = new SqlBulkCopy(this._connStr))
+            using (SqlBulkCopy sbc = new SqlBulkCopy(this._conn))
             {
                 sbc.BatchSize = dt.Rows.Count;
                 sbc.BulkCopyTimeout = 1000;
@@ -53,7 +57,7 @@ namespace Super.Core.Infrastruct.Ado
         public async Task<int> BatchInsertAsync(List<T> lstData)
         {
             var dt = lstData.ListToTable();
-            using (SqlBulkCopy sbc = new SqlBulkCopy(this._connStr))
+            using (SqlBulkCopy sbc = new SqlBulkCopy(this._conn))
             {
                 sbc.BatchSize = dt.Rows.Count;
                 sbc.BulkCopyTimeout = 1000;
@@ -69,5 +73,13 @@ namespace Super.Core.Infrastruct.Ado
             return lstData.Count;
         }
 
+        public void Dispose()
+        {
+            if (this._conn.State == System.Data.ConnectionState.Open)
+            {
+                this._conn.Close();
+            }
+            this._conn.Dispose();
+        }
     }
 }
