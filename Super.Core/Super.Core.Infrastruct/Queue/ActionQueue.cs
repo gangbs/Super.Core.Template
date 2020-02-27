@@ -10,7 +10,7 @@ namespace Super.Core.Infrastruct.Queue
     {
         readonly ConcurrentQueue<Action> _queue;
         readonly Thread _thread;
-        private bool isRunning;
+        private volatile bool isRunning;
 
         public ActionQueue()
         {
