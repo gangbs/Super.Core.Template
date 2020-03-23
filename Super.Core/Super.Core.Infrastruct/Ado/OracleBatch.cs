@@ -46,7 +46,7 @@ namespace Super.Core.Infrastruct.Ado
 
             //3.生成插入语句，得到OracleCommand
             var lstParamName = from item in dic.Keys
-                               select $":{item}";
+                               select $":\"{item}\"";
             var cmdtxt = $"insert into {this.TableName} values({string.Join(",", lstParamName)})";
             var cmd = this.GetOracleCmd(this._conn, cmdtxt, lstData.Count, lstOracleParameter);
 
