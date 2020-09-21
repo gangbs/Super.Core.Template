@@ -23,6 +23,7 @@
 FROM microsoft/dotnet:2.2-aspnetcore-runtime
 MAINTAINER yangyangang
 WORKDIR /app
+ENV dbType=mysql dbName=psa dbPort=3306
 COPY . .
 VOLUME super.core.mvc /app/Config
 EXPOSE 6060

@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Super.Core.Api.Controllers
 {
-#if DEBUG
-#else
-        [Authorize]        
-#endif
+//#if DEBUG
+//#else
+//        [Authorize]        
+//#endif
     [ApiController]
     public abstract class ApiBaseController : ControllerBase
     {

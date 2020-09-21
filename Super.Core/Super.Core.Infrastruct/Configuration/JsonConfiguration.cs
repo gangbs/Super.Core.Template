@@ -21,7 +21,7 @@ namespace Super.Core.Infrastruct.Configuration
 
         public static IConfiguration CreateJsonConfig(string path)
         {
-            var builder = new ConfigurationBuilder().AddJsonFile(path, optional: true, reloadOnChange: true);//能否不指定
+            var builder = new ConfigurationBuilder().AddEnvironmentVariables().AddJsonFile(path, optional: true, reloadOnChange: true);//能否不指定
             var configuration = builder.Build();
             return configuration;
         }
