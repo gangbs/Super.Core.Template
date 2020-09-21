@@ -8,10 +8,10 @@ using Super.Core.Mvc.Filter;
 
 namespace Super.Core.Mvc.Controllers
 {
-#if DEBUG
-#else
-        [Authorize]        
-#endif
+//#if DEBUG
+//#else
+//        [Authorize]        
+//#endif
     [ApiController]
     public abstract class ApiBaseController : ControllerBase
     {

@@ -10,12 +10,25 @@
 
     11111
     <button onclick="ajaxTest()">按钮</button>
+
+
+@*<form method="post" action="http://app-649527f39206496396346d075219414b.apps.supos.ai:8080/index/upload" enctype="multipart/form-data">
+    <input name="file" value="文件" type="file" />
+    <input type="submit" />
+</form>*@
+
 }
+
+<text id="txt"></text>
 
 @section Scripts{
 
     <script>
 
+        $(function () {
+            //alert(window.location.href);
+            $("#txt").text(window.location.href);
+        });
 
         function ajaxTest() {
 

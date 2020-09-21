@@ -73,6 +73,13 @@ namespace Super.Core.Infrastruct.File
             {
                 property.SetValue(obj, cell.DateCellValue);
             }
+            else if (property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition().Equals(typeof(System.Nullable<>)))
+            {
+                if (cell.CellType == CellType.Numeric)
+                    property.SetValue(obj, cell.NumericCellValue);
+                else
+                    property.SetValue(obj, Convert.ChangeType(cell?.ToString(), property.PropertyType.GetGenericArguments()[0]));
+            }
             else
             {
                 var val = Convert.ChangeType(cell?.ToString(), property.PropertyType);//值需实现IConvertible

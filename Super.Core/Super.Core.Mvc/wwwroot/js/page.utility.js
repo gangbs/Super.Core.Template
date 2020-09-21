@@ -26,7 +26,8 @@ $.extend({
                         queryString += "&";
                     queryString += k + "=" + v
                 });
-            };
+            }
+            ;
 
             if (url.endsWith("?") || url.endsWith("&"))
                 url = url + queryString;
@@ -71,8 +72,7 @@ $.extend({
     ajax.errorHandler = function (jqXhr, textStatus, errorThrown) {
         if (jqXhr.responseJSON && jqXhr.responseJSON.message) {
             $.utility.msg.fail(jqXhr.responseJSON.message);
-        }
-        else {
+        } else {
             switch (jqXhr.status) {
                 case (500):
                     $.utility.msg.fail("服务器系统内部错误");
@@ -184,14 +184,14 @@ $.extend({
 
 /*异步异常处理*/
 $(function () {
-	// 设置jQuery Ajax全局的参数
-	$.ajaxSetup({
+    // 设置jQuery Ajax全局的参数
+    $.ajaxSetup({
         cache: false,
         //traditional: true,//布尔值，规定是否使用参数序列化的传统样式。这样后台数组变量才能接受到值
-		error: function (jqXhr, textStatus, errorThrown) {
-            $.utility.ajax.errorHandler(jqXhr, textStatus, errorThrown);          
-		}
-	});
+        error: function (jqXhr, textStatus, errorThrown) {
+            $.utility.ajax.errorHandler(jqXhr, textStatus, errorThrown);
+        }
+    });
 });
 
 

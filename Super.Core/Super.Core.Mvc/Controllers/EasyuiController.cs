@@ -29,11 +29,11 @@ namespace Super.Core.Mvc.Controllers
 
     public class TestModel
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         [Required]
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public List<string> cars { get; set; }
+        public List<string> Cars { get; set; }
     }
 
 }
